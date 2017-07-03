@@ -38,13 +38,19 @@ public class HttpRequestWithBody {
 
     static final Logger logger = Logger.getLogger(HttpRequestWithBody.class.getName());
 
-    private String url;
-    private Multimap<String,String> headerMap;
-    private Map<String, String> queryMap;
-    private Map<String,Object> fields;
+    //private String url;
+    public String url;
+    //private Multimap<String,String> headerMap;
+    public Multimap<String, String> headerMap;
+    //private Map<String, String> queryMap;
+    public Map<String, String> queryMap;
+    //private Map<String,Object> fields;
+    public Map<String, Object> fields;
     private Object body = null;
     private RequestBuilder.Method method;
     private int TIMEOUT = 60000;
+    public boolean hasContentType = false;
+    public boolean hasAccept = false;
 
     private String authorization;
 
@@ -194,7 +200,7 @@ public class HttpRequestWithBody {
         this.url = url;
     }
 
-    private String queries(Map<String,String> parmsRequest){
+    public String queries(Map<String,String> parmsRequest){
         StringBuilder sb = new StringBuilder();
         for ( String k: parmsRequest.keySet() ) {
             String vx = URL.encodeComponent( parmsRequest.get(k));
@@ -204,6 +210,24 @@ public class HttpRequestWithBody {
             sb.append(k).append("=").append(vx);
         }
         return sb.toString();
+    }
+
+    public Object getBody()
+    {
+        return body;
+    }
+    public Map getQuery()
+    {
+        return queryMap;
+    }
+    public String getAuthorization()
+    {
+        return authorization;
+    }
+
+    public String runQuery(Map<String, String> x)
+    {
+        return queries(x);
     }
 
     public void setTimeout(int timeout) {

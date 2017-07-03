@@ -17,7 +17,7 @@
 package com.dotweblabs.shape.client;
 
 public class HttpRequestException extends Exception {
-    private int code;
+    public int code;
     public HttpRequestException(String message, int code){
         super(message);
         this.code = code;

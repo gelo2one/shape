@@ -36,9 +36,12 @@ public class GetRequest {
 
     static final Logger logger = Logger.getLogger(GetRequest.class.getName());
 
-    private String url;
-    private Multimap<String,String> headerMap;
-    private Map<String, String> queryMap = null;
+    //private String url;
+    public String url;
+    //private Multimap<String,String> headerMap;
+    public Multimap<String,String> headerMap;
+    //private Map<String, String> queryMap = null;
+    public Map<String, String> queryMap = null;
     private Map<String,Object> fields = null;
 
     private String authorization = null;
@@ -55,6 +58,7 @@ public class GetRequest {
         }
         if(value != null) {
             headerMap.put(header, value);
+
         }
         return this;
     }
@@ -109,7 +113,7 @@ public class GetRequest {
         this.url = url;
     }
 
-    private String queries(Map<String,String> parmsRequest){
+    public String queries(Map<String,String> parmsRequest){
         StringBuilder sb = new StringBuilder();
         for ( String k: parmsRequest.keySet() ) {
             String vx = URL.encodeComponent( parmsRequest.get(k));
@@ -120,6 +124,21 @@ public class GetRequest {
         }
         return sb.toString();
     }
+
+    public String getAuthorization() {
+        return authorization;
+    }
+
+    public Multimap getHeaderMap()
+    {
+        return headerMap;
+    }
+    public String runQuery(Map<String, String> x)
+    {
+        return queries(x);
+    }
+
+
 
     public void setTimeout(int timeout) {
         this.TIMEOUT = timeout;
